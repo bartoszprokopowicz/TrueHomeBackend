@@ -1,0 +1,87 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/bartosz/bazy/TrueHomeBackend/AuthServer/AuthServer.csproj": {}
+  },
+  "projects": {
+    "/home/bartosz/bazy/TrueHomeBackend/AuthServer/AuthServer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/bartosz/bazy/TrueHomeBackend/AuthServer/AuthServer.csproj",
+        "projectName": "AuthServer",
+        "projectPath": "/home/bartosz/bazy/TrueHomeBackend/AuthServer/AuthServer.csproj",
+        "packagesPath": "/home/bartosz/.nuget/packages/",
+        "outputPath": "/home/bartosz/bazy/TrueHomeBackend/AuthServer/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/bartosz/.config/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "Microsoft.AspNetCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.12, )",
+              "autoReferenced": true
+            },
+            "Microsoft.AspNetCore.Razor.Design": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.2, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            },
+            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
+              "target": "Package",
+              "version": "[1.0.2105168, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.7, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[2.1.2, )"
+            },
+            "OpenIddict": {
+              "target": "Package",
+              "version": "[2.0.0-rc3-final, )"
+            },
+            "OpenIddict.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[2.0.0-rc3-final, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}

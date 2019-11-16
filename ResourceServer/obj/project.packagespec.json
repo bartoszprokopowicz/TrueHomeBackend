@@ -1,0 +1,98 @@
+﻿{
+  "version": "1.0.0",
+  "restore": {
+    "projectUniqueName": "/home/bartosz/bazy/TrueHomeBackend/ResourceServer/ResourceServer.csproj",
+    "projectName": "ResourceServer",
+    "projectPath": "/home/bartosz/bazy/TrueHomeBackend/ResourceServer/ResourceServer.csproj",
+    "outputPath": "/home/bartosz/bazy/TrueHomeBackend/ResourceServer/obj/",
+    "projectStyle": "PackageReference",
+    "originalTargetFrameworks": [
+      "netcoreapp2.1"
+    ],
+    "sources": {
+      "https://api.nuget.org/v3/index.json": {}
+    },
+    "frameworks": {
+      "netcoreapp2.1": {
+        "projectReferences": {}
+      }
+    },
+    "warningProperties": {
+      "warnAsError": [
+        "NU1605"
+      ]
+    }
+  },
+  "frameworks": {
+    "netcoreapp2.1": {
+      "dependencies": {
+        "Dapper": {
+          "target": "Package",
+          "version": "[1.60.1, )"
+        },
+        "Dapper.FluentMap": {
+          "target": "Package",
+          "version": "[1.7.0, )"
+        },
+        "Microsoft.AspNetCore.App": {
+          "suppressParent": "All",
+          "target": "Package",
+          "version": "[2.1.12, )",
+          "autoReferenced": true
+        },
+        "Microsoft.AspNetCore.Razor.Design": {
+          "suppressParent": "All",
+          "target": "Package",
+          "version": "[2.1.2, )"
+        },
+        "Microsoft.NETCore.App": {
+          "suppressParent": "All",
+          "target": "Package",
+          "version": "[2.1.0, )",
+          "autoReferenced": true
+        },
+        "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
+          "target": "Package",
+          "version": "[1.0.2105168, )"
+        },
+        "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+          "target": "Package",
+          "version": "[2.1.9, )"
+        },
+        "NLog.Web.AspNetCore": {
+          "target": "Package",
+          "version": "[4.8.1, )"
+        },
+        "Newtonsoft.Json": {
+          "target": "Package",
+          "version": "[12.0.1, )"
+        },
+        "Npgsql": {
+          "target": "Package",
+          "version": "[4.0.5, )"
+        },
+        "OpenIddict": {
+          "target": "Package",
+          "version": "[2.0.0-rc3-final, )"
+        },
+        "OpenIddict.EntityFrameworkCore": {
+          "target": "Package",
+          "version": "[2.0.0-rc3-final, )"
+        },
+        "SixLabors.ImageSharp": {
+          "target": "Package",
+          "version": "[1.0.0-beta0006, )"
+        },
+        "Swashbuckle.AspNetCore": {
+          "target": "Package",
+          "version": "[4.0.1, )"
+        }
+      },
+      "imports": [
+        "net461"
+      ],
+      "assetTargetFallback": true,
+      "warn": true
+    }
+  }
+}

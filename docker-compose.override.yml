@@ -1,0 +1,47 @@
+version: '3.4'
+
+services:
+  authserver:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      #- ASPNETCORE_URLS=https://+:443;http://+:80
+      #- ASPNETCORE_HTTPS_PORT=44343
+    ports:
+      - "50648:80"
+      #- "44343:443"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ~/source/repos/apappLogs/as:/var/log/apapp
+      
+  resourceserver:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - AuthSrvContainerUrl=http://authServer:80
+      - ResourceSrvUrl=http://localhost:50649
+      - ConnectionStrings__DefaultConnection=Host=postgresDB;Username=postgres;Password=admin;Database=TrueHomeDB
+      - ConnectionStrings__MigrationConnection=Host=postgresDB;Username=postgres;Password=admin
+      #- ASPNETCORE_URLS=https://+:443;http://+:80
+      #- ASPNETCORE_HTTPS_PORT=44344
+    ports:
+      - "50649:80"
+      #- "44344:443"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ~/source/repos/apappPictures:/data/pictures
+      - ~/source/repos/apappLogs/rs:/var/log/apapp
+
+  postgresDB:
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "admin"
+      POSTGRES_DB: "AuthServerDB"
+    ports:
+      - "5433:5432"
+    restart: always
+    volumes:
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ~/source/repos/apappPictures:/data/pictures

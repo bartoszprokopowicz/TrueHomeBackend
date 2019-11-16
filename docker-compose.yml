@@ -1,0 +1,40 @@
+version: '3.4'
+
+services:
+  authserver:
+    container_name: 'authServer'
+    image: ${DOCKER_REGISTRY-}authserver
+    build:
+      context: .
+      dockerfile: AuthServer/Dockerfile
+    networks:
+      - "authNetwork"
+    depends_on:
+      - "postgresDB"
+
+  resourceserver:
+    container_name: 'resourceServer'
+    image: ${DOCKER_REGISTRY-}resource_server
+    build:
+      context: .
+      dockerfile: ResourceServer/Dockerfile
+    networks:
+      - "authNetwork"
+
+  postgresDB:
+    container_name: 'postgresDB'
+    image: postgres
+    build:
+      context: .
+      dockerfile: Dockerfile-DB
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    networks:
+      - "authNetwork"
+
+networks:
+  authNetwork:
+    driver: bridge
+
+volumes:
+  postgres:
