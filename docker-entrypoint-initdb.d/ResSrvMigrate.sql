@@ -59,9 +59,10 @@ CREATE TABLE "rating" (
 	Price			numeric (1) NOT NULL,
 	Description		text,
 	IDRenting		INTEGER NOT NULL,
+	IDAp			INTEGER NOT NULL,
 	CONSTRAINT pk_rating PRIMARY KEY (ID_Rating),
 	CONSTRAINT fk_renting FOREIGN KEY (IDRenting) REFERENCES "renting"(ID_Renting) ON DELETE RESTRICT,
-	CONSTRAINT fk_user FOREIGN KEY (IDUser) REFERENCES "user"(ID_User) ON DELETE RESTRICT
+	CONSTRAINT fk_ap FOREIGN KEY (IDAp) REFERENCES "apartment"(ID_Ap) ON DELETE RESTRICT
 );
 	
 CREATE TABLE "personaldata" (

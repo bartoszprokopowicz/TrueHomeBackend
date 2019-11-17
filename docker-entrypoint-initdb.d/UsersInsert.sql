@@ -22,16 +22,16 @@ VALUES
 
 INSERT INTO "renting" (IDUser, IDAp, date_from, date_to)
 VALUES
-('fddb44a3-43ae-44e2-b8a2-0962fa6be039',1, '1990-06-01'),
-('fddb44a3-43ae-44e2-b8a2-0962fa6be039',2, '1990-06-01'),
-('fddb44a3-43ae-44e2-b8a2-0962fa6be039',3, '1990-06-01'),
-('fddb44a3-43ae-44e2-b8a2-0962fa6be039',4, '1990-06-01'),
-('fddb44a3-43ae-44e2-b8a2-0962fa6be039',5, '1990-06-01');
+('fddb44a3-43ae-44e2-b8a2-0962fa6be039',1, '1990-06-01', '2020-06-01'),
+('fddb44a3-43ae-44e2-b8a2-0962fa6be039',2, '1990-06-01', '2020-06-01'),
+('fddb44a3-43ae-44e2-b8a2-0962fa6be039',3, '1990-06-01', '2020-06-01'),
+('fddb44a3-43ae-44e2-b8a2-0962fa6be039',4, '1990-06-01', '2020-06-01'),
+('fddb44a3-43ae-44e2-b8a2-0962fa6be039',5, '1990-06-01', '2020-06-01');
 
-INSERT INTO "rating" (Owner, Location, Standard, Price, Description, IDRenting)
+INSERT INTO "rating" (Owner, Location, Standard, Price, Description, IDRenting, IDAp)
 VALUES
-(4,5,1,2,'takie se','fddb44a3-43ae-44e2-b8a2-0962fa6be039',1),
-(5,1,5,4,'takie se','fddb44a3-43ae-44e2-b8a2-0962fa6be039',2),
-(3,3,3,3,'takie se','fddb44a3-43ae-44e2-b8a2-0962fa6be039',3),
-(2,5,2,5,'takie se','fddb44a3-43ae-44e2-b8a2-0962fa6be039',4),
-(1,4,3,1,'takie se','fddb44a3-43ae-44e2-b8a2-0962fa6be039',5);
+(4,5,1,2,'takie se',1, 1),
+(5,1,5,4,'takie se',2, 2),
+(3,3,3,3,'takie se',3, 3),
+(2,5,2,5,'takie se',4, 4),
+(1,4,3,1,'takie se',5, 5);
