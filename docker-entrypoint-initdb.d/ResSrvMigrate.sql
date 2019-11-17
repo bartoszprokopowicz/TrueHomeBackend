@@ -53,7 +53,7 @@ CREATE TABLE "renting" (
 
 CREATE TABLE "rating" (
 	ID_Rating		SERIAL,
-	IDUser			text NOT NULL,
+	Owner			numeric (1) NOT NULL,
 	Location		numeric (1) NOT NULL,
 	Standard		numeric (1) NOT NULL,
 	Price			numeric (1) NOT NULL,

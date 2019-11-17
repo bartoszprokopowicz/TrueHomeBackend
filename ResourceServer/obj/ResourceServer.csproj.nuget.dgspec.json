@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/home/bartosz/bazy/TrueHomeBackend/ResourceServer/ResourceServer.csproj": {}
+    "C:\\Users\\prokopowicz\\Desktop\\Very_important_things\\bazy\\TrueHomeBackend\\ResourceServer\\ResourceServer.csproj": {}
   },
   "projects": {
-    "/home/bartosz/bazy/TrueHomeBackend/ResourceServer/ResourceServer.csproj": {
+    "C:\\Users\\prokopowicz\\Desktop\\Very_important_things\\bazy\\TrueHomeBackend\\ResourceServer\\ResourceServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/bartosz/bazy/TrueHomeBackend/ResourceServer/ResourceServer.csproj",
+        "projectUniqueName": "C:\\Users\\prokopowicz\\Desktop\\Very_important_things\\bazy\\TrueHomeBackend\\ResourceServer\\ResourceServer.csproj",
         "projectName": "ResourceServer",
-        "projectPath": "/home/bartosz/bazy/TrueHomeBackend/ResourceServer/ResourceServer.csproj",
-        "packagesPath": "/home/bartosz/.nuget/packages/",
-        "outputPath": "/home/bartosz/bazy/TrueHomeBackend/ResourceServer/obj/",
+        "projectPath": "C:\\Users\\prokopowicz\\Desktop\\Very_important_things\\bazy\\TrueHomeBackend\\ResourceServer\\ResourceServer.csproj",
+        "packagesPath": "C:\\Users\\prokopowicz\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\prokopowicz\\Desktop\\Very_important_things\\bazy\\TrueHomeBackend\\ResourceServer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/bartosz/.config/NuGet/NuGet.Config"
+          "C:\\Users\\prokopowicz\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp2.1"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -47,7 +49,7 @@
             "Microsoft.AspNetCore.App": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[2.1.12, )",
+              "version": "[2.1.1, )",
               "autoReferenced": true
             },
             "Microsoft.AspNetCore.Razor.Design": {
@@ -99,10 +101,16 @@
             }
           },
           "imports": [
-            "net461"
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
           ],
           "assetTargetFallback": true,
-          "warn": true
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
