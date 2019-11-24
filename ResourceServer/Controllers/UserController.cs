@@ -11,7 +11,7 @@ namespace ResourceServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IConfiguration _configuration;
@@ -62,6 +62,15 @@ namespace ResourceServer.Controllers
                 return JsonConvert.SerializeObject(userDetails, Formatting.Indented);
             }
             return "Missing user with this id";
+        }
+
+        [HttpGet("id")]
+        public string Id(){
+            var id = new UserIdJSON
+            {
+                id = User.FindFirst("sub")?.Value
+            };
+            return JsonConvert.SerializeObject(id, Formatting.Indented);
         }
     }
 }

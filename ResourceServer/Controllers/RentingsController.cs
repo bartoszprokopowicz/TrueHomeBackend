@@ -12,7 +12,7 @@ namespace ResourceServer.Controllers
     {
         [Route("api/[controller]")]
         [ApiController]
-        //[Authorize]
+        [Authorize]
         public class RatingsController : ControllerBase
         {
             private readonly ILogger<RatingsController> _logger;

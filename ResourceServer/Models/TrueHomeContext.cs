@@ -241,14 +241,8 @@ namespace ResourceServer.Models
         {
             query = @"UPDATE Apartment SET " +
                     "Name = @Name," +
-                    "City = @City," +
-                    "Street = @Street," +
-                    "ApartmentNumber = @ApartmentNumber," +
                     "ImgThumb = @ImgThumb," +
                     "ImgList = @ImgList," +
-                    "Lat = @Lat," +
-                    "Long = @Long," +
-                    "IDUser = @IDUser," +
                     "Description = @Description " +
                     "WHERE ID_Ap = @ID_Ap;";
 
@@ -263,9 +257,9 @@ namespace ResourceServer.Models
         public static async Task<int> createApartment(Apartment ap)
         {
             query = @"INSERT INTO Apartment " +
-                    "(Name,City,Street,ApartmentNumber,ImgThumb,ImgList,Lat,Long,IDUser)" +
+                    "(Name,City,Street,ApartmentNumber,ImgThumb,ImgList,Lat,Long,IDUser,Description)" +
                     " VALUES " +
-                    "(@Name,@City,@Street,@ApartmentNumber,@ImgThumb,@ImgList,@Lat,@Long,@IDUser)" +
+                    "(@Name,@City,@Street,@ApartmentNumber,@ImgThumb,@ImgList,@Lat,@Long,@IDUser, @Description)" +
                     "RETURNING ID_Ap";
 
             int id;
