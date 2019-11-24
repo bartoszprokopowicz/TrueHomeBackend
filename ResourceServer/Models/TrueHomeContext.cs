@@ -246,6 +246,7 @@ namespace ResourceServer.Models
                     "Description = @Description " +
                     "WHERE ID_Ap = @ID_Ap;";
 
+
             using (var connection = new NpgsqlConnection(AppSettingProvider.connString))
             {
                 connection.Open();
