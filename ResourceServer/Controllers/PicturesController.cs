@@ -16,7 +16,7 @@ namespace ResourceServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class PicturesController : ControllerBase
     {
         private readonly IContentTypeProvider _contentTypeProvider;

@@ -14,7 +14,7 @@ namespace ResourceServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class ApartmentsController : ControllerBase
     {
         private readonly IConfiguration _configuration;
@@ -68,6 +68,7 @@ namespace ResourceServer.Controllers
         public async Task<JObject> Post(Apartment ap)
         {
             var userId = User.FindFirst("sub")?.Value;
+            //var userId = "fddb44a3-43ae-44e2-b8a2-0962fa6be039";
             _logger.LogInformation("Adding new apartment owned by " + User.Identity.Name);
 
             var phoneNum = TrueHomeContext.getPhoneNumber(userId);
@@ -83,6 +84,10 @@ namespace ResourceServer.Controllers
         [HttpPut]
         public async Task<IActionResult> Put(Apartment ap)
         {
+            var userId = User.FindFirst("sub")?.Value;
+            if (ap.IDUser != userId) {
+                return BadRequest();
+            }
             TrueHomeContext.updateApartment(ap);
             return Ok();
         }
