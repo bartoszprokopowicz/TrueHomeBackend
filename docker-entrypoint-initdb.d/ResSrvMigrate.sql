@@ -44,7 +44,7 @@ CREATE TABLE "renting" (
 	ID_Renting		SERIAL,
 	IDUser			text NOT NULL,
 	IDAp			INTEGER NOT NULL,
-	date_from		Date,
+	date_from		Date NOT NULL,
 	date_to 		Date,
 	CONSTRAINT pk_renting PRIMARY KEY (ID_Renting),
 	CONSTRAINT fk_user FOREIGN KEY(IDUser) REFERENCES "user"(ID_User) ON DELETE RESTRICT,

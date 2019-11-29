@@ -153,7 +153,7 @@ namespace ResourceServer.Controllers
         }
 
         [HttpDelete("{idAp}/{filename}")]
-        public IActionResult DeleteImg(int idAp, string filename)
+        public IActionResult DeleteImgAsync(int idAp, string filename)
         {
             var path = $"/data/pictures/{idAp}/{filename}";
             try
@@ -163,7 +163,7 @@ namespace ResourceServer.Controllers
                 System.IO.File.SetAttributes(path, FileAttributes.Normal);
                 System.IO.File.Delete(path);
 
-                TrueHomeContext.DeletePictureRef(idAp, filename);
+                TrueHomeContext.DeletePictureRefAsync(idAp, filename);
 
                 return Ok();
             }

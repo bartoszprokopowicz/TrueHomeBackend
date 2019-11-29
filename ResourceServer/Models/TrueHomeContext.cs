@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace ResourceServer.Models
 {
-    public class TrueHomeContext
+    internal class TrueHomeContext
     {
         private static String query;
 
         //Get all rentings
-        public static IList<Renting> getAllRentings() {
+        internal static IList<Renting> getAllRentings() {
             query = $"SELECT * FROM \"renting\"";
 
             IList<Renting> rentingList = null;
@@ -27,13 +27,14 @@ namespace ResourceServer.Models
             return rentingList;
         }
         
-        public static async Task<int> createRenting(Renting renting) {
-            query = "INSERT INTO \"renting\" " +
-                    "(ID_Renting, IDAp, IDUser, date_from, date_to)" +
+        internal static async Task<int> createRenting(Renting renting) {
+            query = "INSERT INTO renting " +
+                    "(IDAp, IDUser, date_from, date_to) " +
                     "VALUES " +
-                    $"('{renting.ID_Renting}','{renting.IDAp}','{renting.IDUser}',{renting.date_from},{renting.date_to});";
-            
-            int id;
+                    $"({renting.IDAp}, '{renting.IDUser}', '{renting.date_from}', '{renting.date_to}') " +
+                    "RETURNING ID_Renting;";
+
+            int id = -1;
             using (var connection = new NpgsqlConnection(AppSettingProvider.connString))
             {
                 connection.Open();
@@ -41,21 +42,46 @@ namespace ResourceServer.Models
             }
             return id;
         }
-        
-        public static void deleteRenting(int id)
+
+        internal static Renting getRentingByUser(string id)
         {
-            query = "DELETE FROM renting" +
-                    $" WHERE ID_Renting = {id};";
+            query = $"SELECT * FROM renting WHERE IDUser = '{id}';";
+            Renting renting = null;
+            using (var connection = new NpgsqlConnection(AppSettingProvider.connString))
+            {
+                connection.Open();
+                renting = connection.Query<Renting>(query).FirstOrDefault();
+            }
+            return renting;
+        }
+
+        internal static void deleteRenting(int id)
+        {
+            query = "DELETE FROM \"renting\" " +
+                    $"WHERE ID_Renting = {id};";
 
             using (var connection = new NpgsqlConnection(AppSettingProvider.connString))
             {
                 connection.Open();
                 connection.Execute(query);
             }
+        }        
+        internal static void updateRenting(Renting renting)
+        {
+            query = "UPDATE renting SET " +
+                    $"date_to = '{renting.date_to}' " +
+                    $"WHERE ID_Renting = '{renting.ID_Renting}';";
+
+            var id = -1;
+            using (var connection = new NpgsqlConnection(AppSettingProvider.connString))
+            {
+                connection.Open();
+                id = connection.ExecuteScalar<int>(query, renting);
+            }
         }
         
         //Get User by Login
-        public static User getUserByLogin(string login)
+        internal static User getUserByLogin(string login)
         {
             query = $"SELECT * FROM \"user\" WHERE Login = {login};";
 
@@ -68,7 +94,7 @@ namespace ResourceServer.Models
             }
             return user;
         }
-        public static IList<Apartment> getUserApartmentList(string userID)
+        internal static IList<Apartment> getUserApartmentList(string userID)
         {
             query = "SELECT * FROM Apartment " +
                     $"WHERE IDUser = '{userID}'";
@@ -84,7 +110,7 @@ namespace ResourceServer.Models
             return apartmentList;
         }
         //Get User by ID
-        public static User getUser(string userID)
+        internal static User getUser(string userID)
         {
             query = $"SELECT * FROM \"user\" WHERE ID_User = '{userID}';";
 
@@ -99,7 +125,7 @@ namespace ResourceServer.Models
         }
 
         //Add new user
-        public static async Task addUser(User user)
+        internal static async Task addUser(User user)
         {
             user.isBlocked = false;
 
@@ -115,7 +141,7 @@ namespace ResourceServer.Models
             }
         }
 
-        public static string getPhoneNumber(string userID)
+        internal static string getPhoneNumber(string userID)
         {
             query = "SELECT PhoneNumber FROM \"personaldata\" " +
                     $"WHERE IDUser = '{userID}';";
@@ -131,7 +157,7 @@ namespace ResourceServer.Models
             return phonenum;
         }
 
-        public static void setPhoneNumber(string phoneNum, string userID)
+        internal static void setPhoneNumber(string phoneNum, string userID)
         {
             query = "UPDATE PersonalData SET " +
                     $"PhoneNumber = '{phoneNum}' " +
@@ -144,7 +170,7 @@ namespace ResourceServer.Models
             }
         }
 
-        public static PersonalData getPersonalDataByUserID(string userID)
+        internal static PersonalData getPersonalDataByUserID(string userID)
         {
             query = "SELECT * FROM PersonalData AS PD " +
                     "LEFT JOIN \"user\" AS U " +
@@ -162,7 +188,7 @@ namespace ResourceServer.Models
         }
 
         //Add new user
-        public static async Task addPersonalData(PersonalData personalData)
+        internal static async Task addPersonalData(PersonalData personalData)
         {
             query = "INSERT INTO PersonalData " +
                     "(FirstName, LastName, BirthDate, IDUser)" +
@@ -178,7 +204,7 @@ namespace ResourceServer.Models
         }
 
         //Get Apartment by id
-        public static Apartment getApartment(int id)
+        internal static Apartment getApartment(int id)
         {
             query = $"SELECT * FROM get_apartment({id});";
 
@@ -194,7 +220,7 @@ namespace ResourceServer.Models
         }
         
         //Get all Apartments
-        public static IList<Apartment> getAllApartments()
+        internal static IList<Apartment> getAllApartments()
         {
             query = "SELECT * FROM get_all_apartments();";
 
@@ -209,7 +235,7 @@ namespace ResourceServer.Models
         }
 
         //Get with limit and offset Apartments
-        public static ApartmentListJSON getApartments(int limit, int offset)
+        internal static ApartmentListJSON getApartments(int limit, int offset)
         {
             query = $"SELECT * FROM get_all_apartments() ORDER BY ID_Ap ASC LIMIT {limit} OFFSET {offset};";
 
@@ -237,7 +263,7 @@ namespace ResourceServer.Models
         }
 
         //Update Apartment
-        public static void updateApartment(Apartment ap)
+        internal static void updateApartment(Apartment ap)
         {
             query = @"UPDATE Apartment SET " +
                     "Name = @Name," +
@@ -255,7 +281,7 @@ namespace ResourceServer.Models
         }
 
         //Create Apartment
-        public static async Task<int> createApartment(Apartment ap)
+        internal static async Task<int> createApartment(Apartment ap)
         {
             query = @"INSERT INTO Apartment " +
                     "(Name,City,Street,ApartmentNumber,ImgThumb,ImgList,Lat,Long,IDUser,Description)" +
@@ -273,7 +299,7 @@ namespace ResourceServer.Models
             return id;
         }
         //Delete Apartment
-        public static bool deleteApartment(int? id)
+        internal static bool deleteApartment(int? id)
         {
             bool isSuccess = false;
             query = "DELETE FROM Apartment" +
@@ -289,7 +315,7 @@ namespace ResourceServer.Models
         }
 
         //Get with limit and offset Ratings
-        public static RatingJSON getRatings(int id, int limit, int offset)
+        internal static RatingJSON getRatings(int id, int limit, int offset)
         {
             query = $"SELECT * FROM rating WHERE IDAp = {id} ORDER BY ID_Rating ASC LIMIT {limit} OFFSET {offset};";
 
@@ -317,7 +343,7 @@ namespace ResourceServer.Models
             return ratJson;
         }
         //Create Rating
-        public static async Task<int> createRating(Rating rat)
+        internal static async Task<int> createRating(Rating rat)
         {
             query = @"INSERT INTO rating " +
                     "(Owner,Location,Standard,Price,Description,IDUser,IDAp)" +
@@ -335,7 +361,7 @@ namespace ResourceServer.Models
             return id;
         }
         //Update Rating
-        public static void updateRating(Rating rat)
+        internal static void updateRating(Rating rat)
         {
             query = @"UPDATE Rating SET " +
                     "Owner = @Owner," +
@@ -355,7 +381,7 @@ namespace ResourceServer.Models
         }
 
         //Delete Rating
-        public static void deleteRating(int id)
+        internal static void deleteRating(int id)
         {
             query = "DELETE FROM rating" +
                     $" WHERE id_Rating = {id};";
@@ -368,7 +394,7 @@ namespace ResourceServer.Models
         }
 
         //Add picture reference
-        public static void AddPictureRef(int id, string fileName)
+        internal static void AddPictureRefAsync(int id, string fileName)
         {
             var apartment = getApartment(id);
 
@@ -396,7 +422,7 @@ namespace ResourceServer.Models
             //}
         }
         //Delete picture reference
-        public static void DeletePictureRef(int id, string fileName)
+        internal static void DeletePictureRefAsync(int id, string fileName)
         {
             var apartment = getApartment(id);
             apartment.ImgList = apartment.ImgList.Where(file => file != fileName).ToArray();

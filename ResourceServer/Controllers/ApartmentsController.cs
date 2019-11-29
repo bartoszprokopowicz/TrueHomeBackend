@@ -82,7 +82,7 @@ namespace ResourceServer.Controllers
 
         // UPDATE PUT: api/Apartments
         [HttpPut]
-        public async Task<IActionResult> Put(Apartment ap)
+        public IActionResult Put(Apartment ap)
         {
             var userId = User.FindFirst("sub")?.Value;
             if (ap.IDUser != userId) {
@@ -94,7 +94,7 @@ namespace ResourceServer.Controllers
 
         // DELETE: api/Apartments
         [HttpDelete]
-        public async Task<IActionResult> Delete([FromBody] IDJSON id)
+        public IActionResult Delete([FromBody] IDJSON id)
         {
             if (id.IntID == null) return BadRequest();
             TrueHomeContext.deleteApartment(id.IntID);

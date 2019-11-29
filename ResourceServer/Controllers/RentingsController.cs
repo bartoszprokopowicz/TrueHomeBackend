@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -8,56 +8,77 @@ using ResourceServer.Models;
 
 namespace ResourceServer.Controllers
 {
-    public class RentingsController
+    [Route("api/[controller]")]
+    [ApiController]
+    [Authorize]
+    public class RentingsController : ControllerBase
     {
-        [Route("api/[controller]")]
-        [ApiController]
-        [Authorize]
-        public class RatingsController : ControllerBase
+        private readonly ILogger<RatingsController> _logger;
+
+        public RentingsController(ILogger<RatingsController> logger)
         {
-            private readonly ILogger<RatingsController> _logger;
+            _logger = logger;
+        }
 
-            public RatingsController(ILogger<RatingsController> logger)
+        // GET: api/Renting
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var rentingList = TrueHomeContext.getAllRentings();
+            if (rentingList == null)
             {
-                _logger = logger;
+                return NotFound();
             }
+            return Ok(JsonConvert.SerializeObject(rentingList, Formatting.Indented));
+        }
 
-            // GET: api/Rentings
-            [HttpGet]
-            [AllowAnonymous]
-            public string Get()
+        // GET: api/Rentings/:id
+        [HttpGet("getByUser")]
+        public IActionResult GetByUser()
+        {
+            var userId = User.FindFirst("sub")?.Value;
+
+            var renting = TrueHomeContext.getRentingByUser(userId);
+            if (renting == null)
             {
-                var rentingList = TrueHomeContext.getAllRentings();
-
-                return JsonConvert.SerializeObject(rentingList, Formatting.Indented);
+                return NotFound();
             }
+            return Ok(JsonConvert.SerializeObject(renting, Formatting.Indented));
+        }
 
-            //Post api/Renting
-            [HttpPost]
-            public async Task<JObject> Post(Renting ret)
+        //Post api/Rentings
+        [HttpPost]
+        public async Task<IActionResult> Add(Renting ret)
+        {
+            var userId = User.FindFirst("sub")?.Value;
+            _logger.LogInformation("Adding new renting from " + User.Identity.Name);
+
+            ret.IDUser = userId;
+            if (ret.date_to < ret.date_from || ret.date_to <= System.DateTime.Today)
             {
-                var userId = User.FindFirst("sub")?.Value;
-                _logger.LogInformation("Adding new rating from " + User.Identity.Name);
-
-                ret.IDUser = userId;
-                var id = await TrueHomeContext.createRenting(ret);
-                return JObject.Parse("{\"id\": " + id + ", \"UploadStatus\": " + 1 + "}");
+                return BadRequest("Given date is smaller than today");
             }
-
-            // UPDATE PUT: api/Rating/5
-            [HttpPut("{id}")]
-            public IActionResult Put(int id, Rating rat)
+            var id = await TrueHomeContext.createRenting(ret);
+            if (id == -1)
             {
-                return Ok();
+                return BadRequest("Something went wrong!");
             }
+            return Ok(JObject.Parse("{\"id\": " + id + ", \"UploadStatus\": " + 1 + "}"));
+        }
 
-            // DELETE: api/Renting/5
-            [HttpDelete("{id}")]
-            public IActionResult Delete(int id)
-            {
-                TrueHomeContext.deleteRenting(id);
-                return Ok();
-            }
+        // UPDATE PUT: api/Rating/5
+        [HttpPut("{id}")]
+        public IActionResult Edit(int id, Rating rat)
+        {
+            return Ok();
+        }
+
+        // DELETE: api/Renting/5
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            TrueHomeContext.deleteRenting(id);
+            return Ok();
         }
     }
 }
